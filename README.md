@@ -1,4 +1,4 @@
-# `i18next-intervalPlural-postProcessor`
+# `i18next-countable-postProcessor`
 
 ## Introduction
 This is i18next plugin enabling advanced translations, required by some languages. 
