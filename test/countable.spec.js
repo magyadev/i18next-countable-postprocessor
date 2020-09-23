@@ -13,6 +13,13 @@ describe('countable postprocessor', () => {
 
   describe('translating', () => {
     before(() => {
+      beforeEach(() => {   
+        countableProcessor.setOptions({
+          variantSeparator: '_',
+          countVariableName: 'count',
+        });
+      });
+
       i18next.addResourceBundle('en', 'case1', {
         "key1_1": '{{count}} rekord',
         "key1_*2": '{{count}} rekordy',
@@ -38,7 +45,6 @@ describe('countable postprocessor', () => {
         "key4": 'Uploading {{what}}. Progress: {{count}}%',
         "key4_100": 'Upload is done.',
       });
-
 
       i18next.setDefaultNamespace('case1');
     });
@@ -69,7 +75,7 @@ describe('countable postprocessor', () => {
   });
 
   describe('configuration', () => {
-    before(() => {
+    beforeEach(() => {   
       countableProcessor.setOptions({
         variantSeparator: '-',
         countVariableName: 'number',
@@ -83,13 +89,13 @@ describe('countable postprocessor', () => {
       i18next.setDefaultNamespace('case5');
     });
 
-    after(() => {
+    afterEach(() => {
       countableProcessor.setOptions({
         variantSeparator: '_',
         countVariableName: 'count',
       });
     });
-
+    
     var tests = [
       {args: ['key5', { postProcess: 'countable', number: 1}], expected: 'Should found this phrase and insert number here: 1'},
     ];
@@ -132,6 +138,33 @@ describe('countable postprocessor', () => {
       {args: ['key6', { postProcess: 'countable' }], expected: 'Should use this default key'},
       {args: ['key7', { ns: 'case7', postProcess: 'countable', count: 3 }], expected: 'Plural translation'},
       {args: ['key8', { ns: 'case8', postProcess: 'countable', count: 3 }], expected: 'Default translation'},
+    ];
+
+    tests.forEach((test) => {
+      it('correctly translates for ' + JSON.stringify(test.args) + ' args', () => {
+        expect(i18next.t.apply(i18next, test.args)).to.eql(test.expected);
+      });
+    });
+  });
+
+  describe('priorities', () => {
+    before(() => {
+      i18next.addResourceBundle('en', 'case9', {
+        "key9_*2": '*2',
+        "key9_*22": '*22',
+        "key9_322": '322',
+        "key9_2": '2',
+      });
+      i18next.setDefaultNamespace('case9');
+    });
+
+    var tests = [
+      {args: ['key9', { postProcess: 'countable', count: 2 }], expected: '2'},
+      {args: ['key9', { postProcess: 'countable', count: 22 }], expected: '*22'},
+      {args: ['key9', { postProcess: 'countable', count: 322 }], expected: '322'},
+      {args: ['key9', { postProcess: 'countable', count: 32 }], expected: '*2'},
+      {args: ['key9', { postProcess: 'countable', count: 122 }], expected: '*22'},
+      {args: ['key9', { postProcess: 'countable', count: 102 }], expected: '*2'},
     ];
 
     tests.forEach((test) => {

@@ -23,15 +23,16 @@ export default {
     ];
 
     if (countString.length > 2) {
-        tryKeys.push(`${translationKey}${variantSeparator}*${countString.substr(-3)}`);
+      tryKeys.push( `${translationKey}${variantSeparator}*${countString}`);
+      tryKeys.push(`${translationKey}${variantSeparator}*${countString.substr(-3)}`);
     }
 
     if (countString.length > 1) {
         tryKeys.push(`${translationKey}${variantSeparator}*${countString.substr(-2)}`);
     }
-
-    tryKeys.push( `${translationKey}${variantSeparator}*${countString}`);
-
+    
+    tryKeys.push(`${translationKey}${variantSeparator}*${countString.substr(-1)}`);
+ 
     if (count > 1) {
       tryKeys.push(`${translationKey}${variantSeparator}plural`);
     }
