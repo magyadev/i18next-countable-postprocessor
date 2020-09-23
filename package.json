@@ -1,6 +1,6 @@
 {
   "name": "i18next-countable-postprocessor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "postProcessor for applying advanced count dependent rules",
   "main": "./index.js",
   "jsnext:main": "dist/es/index.js",
