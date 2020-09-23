@@ -39,6 +39,7 @@
   "scripts": {
     "tdd": "mocha test/*.js --compilers js:babel-register --watch",
     "test": "mocha test/*.js --compilers js:babel-register",
+    "copy": "cp ./dist/umd/i18nextCountablePostProcessor.min.js ./i18nextCountablePostProcessor.min.js && cp ./dist/umd/i18nextCountablePostProcessor.js ./i18nextCountablePostProcessor.js",
     "coverage": "cross-env NODE_ENV=test babel-node node_modules/.bin/isparta cover node_modules/mocha/bin/_mocha",
     "coveralls": "cross-env NODE_ENV=test npm run coverage && coveralls < coverage/lcov.info",
     "clean": "rimraf dist && mkdirp dist",
@@ -47,7 +48,7 @@
     "build:umd": "rollup -c rollup.config.js --format umd && rollup -c rollup.config.js --format umd --uglify",
     "build:amd": "rollup -c rollup.config.js --format amd && rollup -c rollup.config.js --format umd --uglify",
     "build:iife": "rollup -c rollup.config.js --format iife && rollup -c rollup.config.js --format iife --uglify",
-    "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:umd"
+    "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:umd && npm run copy"
   },
   "author": "MagyaDev <m@magyadev.com> (https://github.com/magyadev)",
   "license": "MIT"
