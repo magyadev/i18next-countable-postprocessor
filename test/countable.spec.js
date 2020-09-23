@@ -81,6 +81,10 @@ describe('countable postprocessor', () => {
         countVariableName: 'number',
       });
 
+      countableProcessor.setOptions({
+        countVariableName: {},
+      });
+
       i18next.addResourceBundle('en', 'case5', {
         "key5-1": 'Should found this phrase and insert number here: {{number}}',
         "key5_1": 'Should ommit this phrase',

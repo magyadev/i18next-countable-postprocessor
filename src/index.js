@@ -9,7 +9,8 @@ export default {
 
   setOptions(options) {
     Object.keys(options).forEach(optionKey => {
-      if(typeof this.options[optionKey] === 'string') {
+      /* istanbul ignore else*/
+      if(typeof options[optionKey] === 'string') {
         this.options[optionKey] = options[optionKey];
       }
     })
@@ -22,17 +23,20 @@ export default {
         `${translationKey}${variantSeparator}${countString}`, 
     ];
 
+    /* istanbul ignore else*/
     if (countString.length > 2) {
-      tryKeys.push( `${translationKey}${variantSeparator}*${countString}`);
+      tryKeys.push(`${translationKey}${variantSeparator}*${countString}`);
       tryKeys.push(`${translationKey}${variantSeparator}*${countString.substr(-3)}`);
     }
 
+    /* istanbul ignore else*/
     if (countString.length > 1) {
         tryKeys.push(`${translationKey}${variantSeparator}*${countString.substr(-2)}`);
     }
     
     tryKeys.push(`${translationKey}${variantSeparator}*${countString.substr(-1)}`);
  
+    /* istanbul ignore else*/
     if (count > 1) {
       tryKeys.push(`${translationKey}${variantSeparator}plural`);
     }
