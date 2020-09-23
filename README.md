@@ -27,8 +27,8 @@ i18next
 
 ## Translation resource
 Create additional rule keys in translation resource for language that requires more that one plural form.
-Example in Polish laguage, when we use 2 FORMS for plural version, and the rules are:
-* FORM 1: when number ends with digit 2, 3 or 4 digit, except when it ens with 12, 13 and 14. Eg. 2, 11, 22, 142, 1054, and so on.
+Example is Polish language, there are 2 forms for plural version, and the rules are:
+* FORM 1: when number ends with digit 2, 3 or 4 digit, except when it ends with 12, 13 and 14. Eg. 2, 11, 22, 142, 1054, and so on.
 * FORM 2: when number don't end with 2, 3 or 4 digit, except for 12, 13, 14. Eg. 5, 113, 5528.
 
 ### Example resource
@@ -56,7 +56,6 @@ Example in Polish laguage, when we use 2 FORMS for plural version, and the rules
 }
 ```
 
-
 ## Translating using native `t` function 
 ```js
 import i18next from "i18next";
@@ -64,7 +63,7 @@ import i18next from "i18next";
 const translation = i18next.t('records_found', { postProcess: 'countable', count: 5 }); 
 ```
 
-## Translating using react-i18next
+## Translating using `react-i18next`
 ```js
 import { useTranslation } from "react-i18next";
 
