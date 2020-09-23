@@ -10,7 +10,7 @@ This is i18next plugin enabling advanced translations, required by some language
 $ npm install i18next-countable-postprocessor
 
 # bower
-$ bower install i18next-countable-postprocessor
+$ bower install magyadev/i18next-countable-postprocessor
 ```
 
 - If you don't use a module loader it will be added to `window.i18nextCountablePostProcessor`
