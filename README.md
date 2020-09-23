@@ -4,7 +4,6 @@
 This is i18next plugin enabling advanced translations, required by some languages. 
 
 ## Getting started
-
 ```sh
 # npm package
 $ npm install i18next-countable-postprocessor
@@ -15,23 +14,24 @@ $ bower install magyadev/i18next-countable-postprocessor
 
 - If you don't use a module loader it will be added to `window.i18nextCountablePostProcessor`
 
-Wiring up:
-
+## Minimal configuration
 ```js
 import i18next from 'i18next';
 import countable from 'i18next-countable-postprocessor';
 
 i18next
-  .use(intervalPlural)
-  .init(i18nextOptions);
+  .use(countable)
+  .init({ /* your i18next configuration */ });
+
 ```
 
-## Usage translation resource
+## Translation resource
 Create additional rule keys in translation resource for language that requires more that one plural form.
 Example in Polish laguage, when we use 2 FORMS for plural version, and the rules are:
 * FORM 1: when number ends with digit 2, 3 or 4 digit, except when it ens with 12, 13 and 14. Eg. 2, 11, 22, 142, 1054, and so on.
 * FORM 2: when number don't end with 2, 3 or 4 digit, except for 12, 13, 14. Eg. 5, 113, 5528.
 
+### Example resource
 ```js
 {
     "records_found_0": "Nie znaleziono rekordów",
@@ -56,16 +56,7 @@ Example in Polish laguage, when we use 2 FORMS for plural version, and the rules
 }
 ```
 
-## Minimal configuration
-```js
-import i18next from 'i18next';
-import countable from 'i18next-countable-postprocessor';
 
-i18next
-  .use(countable)
-  .init({ /* your i18next configuration */ });
-
-```
 ## Translating using native `t` function 
 ```js
 import i18next from "i18next";
