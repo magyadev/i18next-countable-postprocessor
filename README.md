@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/magyadev/i18next-countable-postprocessor.svg?branch=master)](https://travis-ci.org/magyadev/i18next-countable-postprocessor)
+[![Coverage Status](https://coveralls.io/repos/github/magyadev/i18next-countable-postprocessor/badge.svg?branch=master)](https://coveralls.io/github/magyadev/i18next-countable-postprocessor?branch=master)
+
 # `i18next-countable-postprocessor`
 
 ## Introduction

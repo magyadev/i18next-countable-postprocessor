@@ -11,7 +11,7 @@ describe('countable postprocessor', () => {
       });
   });
 
-  describe('basic', () => {
+  describe('translating', () => {
     before(() => {
       i18next.addResourceBundle('en', 'case1', {
         "key1_1": '{{count}} rekord',
@@ -59,6 +59,79 @@ describe('countable postprocessor', () => {
 
       {args: ['key4', { ns: 'case4', postProcess: 'countable', count: 52, what: 'image'}], expected: 'Uploading image. Progress: 52%'},
       {args: ['key4', { ns: 'case4', postProcess: 'countable', count: 100, what: 'image' }], expected: 'Upload is done.'},
+    ];
+
+    tests.forEach((test) => {
+      it('correctly translates for ' + JSON.stringify(test.args) + ' args', () => {
+        expect(i18next.t.apply(i18next, test.args)).to.eql(test.expected);
+      });
+    });
+  });
+
+  describe('configuration', () => {
+    before(() => {
+      countableProcessor.setOptions({
+        variantSeparator: '-',
+        countVariableName: 'number',
+      });
+
+      i18next.addResourceBundle('en', 'case5', {
+        "key5-1": 'Should found this phrase and insert number here: {{number}}',
+        "key5_1": 'Should ommit this phrase',
+      });
+
+      i18next.setDefaultNamespace('case5');
+    });
+
+    after(() => {
+      countableProcessor.setOptions({
+        variantSeparator: '_',
+        countVariableName: 'count',
+      });
+    });
+
+    var tests = [
+      {args: ['key5', { postProcess: 'countable', number: 1}], expected: 'Should found this phrase and insert number here: 1'},
+    ];
+
+    tests.forEach((test) => {
+      it('correctly translates for ' + JSON.stringify(test.args) + ' args', () => {
+        expect(i18next.t.apply(i18next, test.args)).to.eql(test.expected);
+      });
+    });
+  });
+
+  describe('fallback', () => {
+    before(() => {
+      i18next.addResourceBundle('en', 'case6', {
+        "key6_1": 'Should ignore this if count parameter not provided',
+        "key6": 'Should use this default key',
+      });
+      
+      i18next.addResourceBundle('en', 'case7', {
+        "key7_2": 'Should fallback to plural',
+        "key7": 'Default translation',
+        "key7_plural": 'Plural translation',
+      });
+
+      i18next.addResourceBundle('en', 'case8', {
+        "key8_2": 'Should fallback to default',
+        "key8": 'Default translation',
+      });
+
+      i18next.addResourceBundle('en', 'case9', {
+        "key9": 'Should fallback to default',
+      });
+      
+      i18next.setDefaultNamespace('case6');
+    });
+
+    var tests = [
+      {args: ['key6', { postProcess: 'countable', count: 3 }], expected: 'Should use this default key'},
+      {args: ['key66', { postProcess: 'countable', count: 3 }], expected: 'key66'},
+      {args: ['key6', { postProcess: 'countable' }], expected: 'Should use this default key'},
+      {args: ['key7', { ns: 'case7', postProcess: 'countable', count: 3 }], expected: 'Plural translation'},
+      {args: ['key8', { ns: 'case8', postProcess: 'countable', count: 3 }], expected: 'Default translation'},
     ];
 
     tests.forEach((test) => {
